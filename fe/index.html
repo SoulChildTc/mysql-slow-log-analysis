@@ -70,6 +70,11 @@
         #dbFilter {
             margin-bottom: 15px;
         }
+
+        #allQueries {
+            width: 100% !important;
+            overflow: hidden !important;
+        }
     </style>
 
     <!-- Chart.js -->
@@ -770,6 +775,7 @@
                 <th>平均时间(秒)</th>
                 <th>最长时间(秒)</th>
                 <th>执行次数</th>
+                <th>最大检查行数</th>
                 <th>最后执行时间</th>
             </tr>
         </thead>
@@ -808,17 +814,18 @@
                             render: function (data) { return parseFloat(data).toFixed(4); }
                         },
                         { data: 'query_count' },
+                        { data: 'metrics.Rows_examined.max' },
                         {
                             data: 'example.ts',
                             render: function (data) { return formatTimestamp(data); }
                         }
                     ],
                     columnDefs: [
-                        { targets: 0, width: '30%' },
-                        { targets: 1, width: '10%' },
-                        { targets: [2, 3], width: '15%' },
-                        { targets: 4, width: '10%' },
-                        { targets: 5, width: '20%' }
+                        { targets: 0, width: '25%' },  // 查询指纹列
+                        { targets: 1, width: '15%' },  // 数据库列
+                        { targets: [2, 3], width: '10%' },  // 平均时间和最长时间列
+                        { targets: [4, 5], width: '10%' },  // 执行次数和最大检查行数列
+                        { targets: 6, width: '20%' }   // 最后执行时间列
                     ]
                 });
 
